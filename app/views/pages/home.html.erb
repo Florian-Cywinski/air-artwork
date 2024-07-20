@@ -1,0 +1,38 @@
+<%= link_to "/artworks", class: "linking" do %>
+  <div class="banner">
+    <div class="container">
+      <h1>Air Artwork</h1>
+      <p>Rent premium Artwork to impress...</p>
+    </div>
+  </div>
+<% end %>
+
+<div class="cards">
+  <% @artworks.each do |artwork| %>
+    <%= link_to artwork_path(artwork), class:"linking" do%>
+    <div class="card-category">
+      <div class="card-trip">
+        <%= cl_image_tag artwork.photos.first.key, height: 300, width: 400, crop: :fill %>
+        <div class="card-trip-infos">
+          <div>
+            <h2> <%= artwork.title %></h2>
+            <p><%= artwork.description.truncate(41) %></p>
+          </div>
+          <h2 class="card-trip-pricing"><%= number_to_currency(artwork.price, :unit=>'€') %></h2>
+          <% if artwork.user.avatar.attached? %>
+            <%= cl_image_tag artwork.user.avatar.key, height: 300, width: 400, crop: :fill, :class => "card-trip-user avatar-bordered" %>
+          <% else %>
+            <%= image_tag "profile2.jpg", :class => "card-trip-user avatar-bordered" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
+</div>
+
+<%= link_to "/artworks", class: "linking" do %>
+  <div class="d-grid gap-2 col-4 mx-auto">
+    <button type="button" class="btn btn-outline-secondary">See All Artwork</button>
+  </div>
+<% end %>
